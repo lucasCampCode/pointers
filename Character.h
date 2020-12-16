@@ -4,7 +4,7 @@ class Character
 public:
 	Character();
 	Character(float health, float damage);
-	Character(float health, float damage, char* name);
+	Character(float health, float damage,const char* name);
 
 	void attack(Character* other);
 	float takeDamage(float damageAmount);
@@ -16,7 +16,7 @@ public:
 	bool isAlive() { return m_health >= 0; }
 
 private:
-	char* m_name[16];
+	char m_name[16];
 	float m_health;
 	float m_damage;
 };

@@ -46,7 +46,6 @@ int Game::startBattle(Character* enemy,int num)
 		{
 			if (turn1)
 			{
-
 				input = getInput(input, "{1} for fight ", "{2} for run", "you run into a monster in the woods!");
 				if (input == 1) 
 				{

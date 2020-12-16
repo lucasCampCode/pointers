@@ -3,25 +3,23 @@
 
 Character::Character()
 {
-	char name[] = "???";
 	m_health = 100;
 	m_damage = 10;
-	*m_name = name;
+	strncpy_s(m_name, "???", 16);
 }
 
 Character::Character(float health, float damage)
 {
-	char name[] = "???";
 	m_health = health;
 	m_damage = damage;
-	*m_name = name;
+	strncpy_s(m_name, "???", 16);
 }
 
-Character::Character(float health, float damage, char* name)
+Character::Character(float health, float damage,const char* name)
 {
 	m_health = health;
 	m_damage = damage;
-	*m_name = name;
+	strncpy_s(m_name, name, 16);
 }
 
 void Character::attack(Character* other)
@@ -37,7 +35,7 @@ float Character::takeDamage(float damageAmount)
 
 void Character::printStats()
 {
-	std::cout << "name: " << *m_name << "\n";
+	std::cout << "name: " << m_name << "\n";
 	std::cout << "health: " << m_health << "\n";
 	std::cout << "damage: " << m_damage << "\n";
 
@@ -45,5 +43,5 @@ void Character::printStats()
 
 void Character::setName(char* name)
 {
-	*m_name = name;
+	strncpy_s(m_name, name, 16);
 }

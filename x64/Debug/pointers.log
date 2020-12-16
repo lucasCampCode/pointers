@@ -1,0 +1,6 @@
+﻿  Character.cpp
+  Game.cpp
+C:\Users\s208055\Desktop\projects\pointers\Game.cpp(103,20): warning C4154: deletion of an array expression; conversion to pointer supplied
+  Main.cpp
+  Generating Code...
+  pointers.vcxproj -> C:\Users\s208055\Desktop\projects\introToCPP\x64\Debug\pointers.exe
