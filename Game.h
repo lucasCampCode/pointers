@@ -8,14 +8,21 @@ public:
 	void setGameOver(bool value) { m_gameOver = value; }
 private:
 	int getInput(int input,const char* option1,const char* option2,const char* qurry);
-	int startBattle(Character* enemy,int num);
+	void startBattle(Character* enemy);
+
+	void save();
+	bool load();
+
 	void start();
 	void update();
 	void draw();
 	void end();
 private:
-	bool multiPlayer;
+	bool multiPlayer = false;
 	bool m_gameOver = false;
+	bool turn1 = true;
+	int m_entityNum = 0;
+
 	Character* m_player1;
 	Character* m_player2;
 	Character* m_enemies[10];

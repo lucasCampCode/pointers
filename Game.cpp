@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <fstream>
 
 
 void Game::run() 
@@ -8,11 +9,8 @@ void Game::run()
 
 	while (!getGameOver()) 
 	{
-		draw();
 		update();
-
-		if (m_player1->isAlive() || m_player2->isAlive())
-			setGameOver(true);
+		draw();
 	}
 
 	end();
@@ -36,27 +34,67 @@ int Game::getInput(int input,const char* option1,const char* option2,const char*
 	return input;
 }
 
-int Game::startBattle(Character* enemy,int num)
+void Game::startBattle(Character* enemy)
 {
 	int input = 0;
-	bool turn1 = true;
-	while (enemy->isAlive() || m_player1->isAlive() && m_player2->isAlive()) 
+	if (multiPlayer)
 	{
-		if (multiPlayer) 
+		if (turn1)
 		{
-			if (turn1)
+			input = getInput(input, "{1} for fight ", "{2} for run", "you run into a monster in the woods!");
+			if (input == 1)
 			{
-				input = getInput(input, "{1} for fight ", "{2} for run", "you run into a monster in the woods!");
-				if (input == 1) 
-				{
-					m_player1->attack(enemy);
-				}
-				else
-					break;
+				m_player1->attack(enemy);
+				turn1 = !turn1;
+			}
+			else
+			{
+				turn1 = !turn1;
+			}
+		}
+		else
+		{
+			input = getInput(input, "{1} for fight ", "{2} for run", "you run into a monster in the woods!");
+			if (input == 1)
+			{
+				m_player2->attack(enemy);
+				turn1 = !turn1;
+			}
+			else {
+				turn1 = !turn1;
 			}
 		}
 	}
-	return num++;
+	else
+	{
+		input = getInput(input, "{1} for fight ", "{2} for run", "you run into a monster in the woods!");
+		if (input == 1)
+		{
+			m_player1->attack(enemy);
+		}
+	}
+	system("cls");
+}
+
+void Game::save()
+{
+	std::fstream file;
+	file.open("gameData.txt", std::ios::out);
+	if (!file.is_open())
+		return;
+
+	file.close();
+}
+
+bool Game::load()
+{
+	std::fstream file;
+	file.open("gameData.txt", std::ios::in | std::ios::_Nocreate);
+	if (!file.is_open())
+		return false;
+
+	file.close();
+	return true;
 }
 
 
@@ -64,6 +102,10 @@ void Game::start()
 {
 	int input = 0;
 	char name[15];
+
+	for(int i = 0; i < 10;i++)
+		m_enemies[i] = new Character((float)(rand() % 100 + 20), (float)(rand() % 20));
+
 	std::cout << "welcome to the fight whats your name?\n";
 	std::cin >> name;
 	m_player1 = new Character(100, 10, name);
@@ -73,26 +115,45 @@ void Game::start()
 		std::cout << "whats the second combatants name?\n";
 		std::cin >> name;
 		m_player2 = new Character(100, 10, name);
-		multiPlayer = false;
+		multiPlayer = true;
 	}
 	else
 		std::cout << "its dangorous to go alone\n";
-	for(int i = 0; i < 10;i++)
-		m_enemies[i] = new Character((float)(rand() % 100 + 20), (float)(rand() % 20));
 }
 
-void Game::update() 
+void Game::update()
 {
 	int input = 0;
-	int entityNum = 0;
-	entityNum = startBattle(m_enemies[entityNum], entityNum);
+	std::cout << "round " << m_entityNum <<"!\n";
+	if (multiPlayer)
+	{
+		while (m_enemies[m_entityNum]->isAlive() && (m_player1->isAlive() || m_player2->isAlive()))
+		{
+			m_player1->printStats();
+			m_player2->printStats();
+			m_enemies[m_entityNum]->printStats();
+
+			startBattle(m_enemies[m_entityNum]);
+		}
+		if (!m_player1->isAlive() && !m_player2->isAlive())
+			setGameOver(true);
+	}
+	else {
+		while (m_enemies[m_entityNum]->isAlive() && m_player1->isAlive())
+		{
+			m_player1->printStats();
+			m_enemies[m_entityNum]->printStats();
+
+			startBattle(m_enemies[m_entityNum]);
+		}
+		if (!m_player1->isAlive())
+			setGameOver(true);
+	}
+	m_entityNum++;
 }
 
 void Game::draw() 
 {
-	m_player1->printStats();
-	if (multiPlayer)
-		m_player2->printStats();
 }
 
 void Game::end()

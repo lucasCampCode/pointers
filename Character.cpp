@@ -40,8 +40,3 @@ void Character::printStats()
 	std::cout << "damage: " << m_damage << "\n";
 
 }
-
-void Character::setName(char* name)
-{
-	strncpy_s(m_name, name, 16);
-}
