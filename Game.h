@@ -10,7 +10,7 @@ private:
 	char getInput(char input,const char* option1,const char* option2,const char* qurry);
 	void startBattle(Character* enemy);
 
-	void save();
+	bool save();
 	bool load();
 
 	void start();

@@ -90,29 +90,58 @@ void Game::startBattle(Character* enemy)
 	system("cls");
 }
 
-void Game::save()
+bool Game::save()
 {
 	std::fstream file;
-	file.open("gameData.txt", std::ios::out | std::ios::binary);
+
+	file.open("gameData.txt", std::ios::app | std::ios::binary);
 	if (!file.is_open())
-		return;
+		return false;
+
 	file.write((char*)&m_roundNum, sizeof(int));
 	file.write((char*)&m_player1,sizeof(Character));
 	file.write((char*)&m_player2, sizeof(Character));
 	file.write((char*)m_enemies, sizeof(Character)* 10);
 	
 	file.close();
+	return true;
 }
 
 bool Game::load()
 {
 	std::fstream file;
+	char input = ' ';
+	int i = 0;
 	file.open("gameData.txt", std::ios::in | std::ios::binary);
 	if (!file.is_open())
 		return false;
+	while (file.eof())
+	{
+		file.seekg((sizeof(int) + (sizeof(Character)* 12))  * i, std::ios::beg);
+		file.read((char*)&m_roundNum, sizeof(int));
+		file.seekg(sizeof(int), std::ios::cur);
+		file.read((char*)&m_player1, sizeof(Character));
+		file.seekg(sizeof(Character), std::ios::cur);
+		file.read((char*)&m_player2, sizeof(Character));
+		file.seekg(sizeof(Character), std::ios::cur);
+		file.read((char*)m_enemies, sizeof(Character) * 10);
+		std::cout << "last round: " << m_roundNum << std::endl;
+		std::cout << "player 1:"<<std::endl;
+		m_player1->printStats();
+		if (m_player2 != NULL) {
+		std::cout << "player 2: " << std::endl;
+		m_player1->printStats();
+		}
+		i++;
+	}
+	
+	file.seekg((sizeof(int) + (sizeof(Character)* 12)) * i, std::ios::beg);
 	file.read((char*)&m_roundNum, sizeof(int));
+	file.seekg(sizeof(int), std::ios::cur);
 	file.read((char*)&m_player1, sizeof(Character));
+	file.seekg(sizeof(Character), std::ios::cur);
 	file.read((char*)&m_player2, sizeof(Character));
+	file.seekg(sizeof(Character), std::ios::cur);
 	file.read((char*)m_enemies, sizeof(Character) * 10);
 
 	file.close();
@@ -186,5 +215,5 @@ void Game::end()
 {
 	delete m_player1;
 	delete m_player2;
-	delete m_enemies;
+	delete[] m_enemies;
 }
