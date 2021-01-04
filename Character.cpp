@@ -37,6 +37,7 @@ void Character::printStats()
 {
 	std::cout << "name: " << m_name << "\n";
 	std::cout << "health: " << m_health << "\n";
-	std::cout << "damage: " << m_damage << "\n";
+	std::cout << "damage: " << m_damage << std::endl;
+	std::cout << "------------" << std::endl;
 
 }

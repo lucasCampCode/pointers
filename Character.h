@@ -10,12 +10,13 @@ public:
 	float takeDamage(float damageAmount);
 	void printStats();
 
+	char* getName() { return m_name; }
 	float getDamage() { return m_damage; }
 	float getHealth() { return m_health; }
 	bool isAlive() { return m_health > 0; }
 
-private:
 
+private:
 	char m_name[16];
 	float m_health;
 	float m_damage;
