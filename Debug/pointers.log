@@ -1,5 +1,5 @@
 ﻿  Game.cpp
-C:\Users\xsiger\Documents\projects\pointers\Game.cpp(125,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\xsiger\Documents\projects\pointers\Game.cpp(189,18): warning C4156: deletion of an array expression without using the array form of 'delete'; array form substituted
-C:\Users\xsiger\Documents\projects\pointers\Game.cpp(189,18): warning C4154: deletion of an array expression; conversion to pointer supplied
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(257,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(356,20): warning C4154: deletion of an array expression; conversion to pointer supplied
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(61): warning C4715: 'Game::getNumber': not all control paths return a value
   pointers.vcxproj -> C:\Users\xsiger\Documents\projects\introToCPP\Debug\pointers.exe

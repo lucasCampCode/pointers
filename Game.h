@@ -7,10 +7,13 @@ public:
 	bool getGameOver() { return m_gameOver; }
 	void setGameOver(bool value) { m_gameOver = value; }
 private:
-	char getInput(char input,const char* option1,const char* option2,const char* qurry);
+	int getNumber(char input, const char* query);
+	char getInput(char input,const char* option1,const char* option2,const char* query);
 	void startBattle(Character* enemy);
 
 	bool save();
+	bool showSaveData();
+	bool saveToSlot();
 	bool load();
 
 	void start();
