@@ -1,0 +1,11 @@
+﻿  Character.cpp
+  Game.cpp
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(257,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(356,20): warning C4154: deletion of an array expression; conversion to pointer supplied
+  Main.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\xsiger\Documents\projects\pointers\Game.cpp(61): warning C4715: 'Game::getNumber': not all control paths return a value
+  All 180 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  pointers.vcxproj -> C:\Users\xsiger\Documents\projects\introToCPP\Release\pointers.exe
